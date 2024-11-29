@@ -6,6 +6,7 @@ import {
   PerspectiveCamera,
   View,
 } from "@react-three/drei";
+import * as THREE from "three";
 // Component
 import Lights from "./Lights";
 import IPhone from "./IPhone";
@@ -31,9 +32,17 @@ const ModelView = ({
 
       <Lights />
 
-      <OrbitControls />
+      <OrbitControls
+        makeDefault
+        ref={controlRef}
+        enableZoom={false}
+        enablePan={false}
+        rotateSpeed={0.4}
+        target={new THREE.Vector3(0, 0, 0)}
+        onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())}
+      />
 
-      <group ref={groupRef}>
+      <group ref={groupRef} name={`${index === 1 ? "small" : "large"}`}>
         <Suspense
           fallback={
             <Html>
@@ -41,7 +50,7 @@ const ModelView = ({
             </Html>
           }
         >
-          <IPhone />
+          <IPhone scale={index === 1 ? [15,15,15] : [17,17,17]} />
         </Suspense>
       </group>
     </View>

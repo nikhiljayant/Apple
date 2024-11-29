@@ -1,6 +1,11 @@
 import React, { Suspense } from "react";
 // Dependency
-import { PerspectiveCamera, View } from "@react-three/drei";
+import {
+  Html,
+  OrbitControls,
+  PerspectiveCamera,
+  View,
+} from "@react-three/drei";
 // Component
 import Lights from "./Lights";
 import IPhone from "./IPhone";
@@ -18,9 +23,7 @@ const ModelView = ({
     <View
       index={index}
       id={gsapType}
-      className={`border-2 border-red-500 w-full h-full ${
-        index === 2 ? "right-[-100%]" : ""
-      }`}
+      className={`w-full h-full ${index === 2 ? "right-[-100%]" : ""}`}
     >
       <ambientLight intensity={0.3} />
 
@@ -28,9 +31,19 @@ const ModelView = ({
 
       <Lights />
 
-      <Suspense fallback={<div>Loading</div>}>
-        <IPhone />
-      </Suspense>
+      <OrbitControls />
+
+      <group ref={groupRef}>
+        <Suspense
+          fallback={
+            <Html>
+              <div>Loading</div>
+            </Html>
+          }
+        >
+          <IPhone />
+        </Suspense>
+      </group>
     </View>
   );
 };

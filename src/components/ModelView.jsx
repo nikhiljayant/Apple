@@ -24,7 +24,7 @@ const ModelView = ({
     <View
       index={index}
       id={gsapType}
-      className={`w-full h-full ${index === 2 ? "right-[-100%]" : ""}`}
+      className={`w-full h-full absolute ${index === 2 ? "right-[-100%]" : ""}`}
     >
       <ambientLight intensity={0.3} />
 
@@ -32,6 +32,7 @@ const ModelView = ({
 
       <Lights />
 
+      {/* TO MOVE THE MODEL ALL AROUND */}
       <OrbitControls
         makeDefault
         ref={controlRef}
@@ -50,7 +51,11 @@ const ModelView = ({
             </Html>
           }
         >
-          <IPhone scale={index === 1 ? [15,15,15] : [17,17,17]} />
+          <IPhone
+            scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
+            item={item}
+            size={size}
+          />
         </Suspense>
       </group>
     </View>
